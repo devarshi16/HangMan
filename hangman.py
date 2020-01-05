@@ -1,19 +1,12 @@
 from __future__ import print_function
 from builtins import input
 from termcolor import colored
-
+import readchar
 from random import randint
 import sys
 import os
 import time
 from config import *
-
-# Open file containing animal names in read-only mode
-file_loc = os.path.join(DATA_LOCATION,'animals.txt')
-f = open(file_loc,'r')
-
-# Add each animal name on each line to a list 'animals'
-animals =  [x.strip() for x in f.readlines()]
 
 # hangman sprites
 hngmn = ['''
@@ -117,13 +110,19 @@ class Game:
     
     #methods
     def __init__(self):#initialisation
-        self.animal = animals[randint(0,len(animals)-1)]
+        self.animal = animals[randint(0,len(animals)-1)].lower()
         self.blanks=len(self.animal)*'_'
+        for i,letter in enumerate(self.animal):
+            if not letter.isalpha():
+                self.blanks = self.blanks[:i]+letter+self.blanks[i+1:]
         os.system("clear")
         print(hngmn[0])
-        print ('You have to guess the name of the animal letter by letter')
-        print ('Your animal is ' + len(self.animal)*'_ ')
-        time.sleep(5)
+        print ('You have to guess the name of the '+list_type+' letter by letter')
+        print ('Your '+list_type+' is ' ,end='')
+        for letter in self.blanks:
+            print(letter,end = ' ')
+        print()
+        time.sleep(3)
     
     def Score(self):#displayed at the end
         if self.success_stat == 1:
@@ -132,7 +131,7 @@ class Game:
             Game.lose = Game.lose + 1
 
     def Status(self): # Returns current win/lose status
-        print("score is win = "+str(Game.win)+" \ lose ="+ str(Game.lose) )
+        print("Score is "+colored("win = "+str(Game.win),'green')+" \ "+colored("lose ="+ str(Game.lose),'red') )
     
     def MainGame(self):#main game method
         while True:
@@ -142,13 +141,16 @@ class Game:
             for i in range(len(self.blanks)):
                 print(self.blanks[i],end= ' ')
             print()
-            while len(k)!=1: #while input length is different from 1
-                k=input("your choice of letter?")
+            while True:
+                k=input("Your choice of letter?")
                 if len(k)!=1:
-                    print('enter only one letter please')
+                    print('Enter only one letter please')
+                    continue
+                elif not k.isalpha():
+                    print('Enter only alphabets')
                     continue
                 elif k.lower() in self.done_letters:
-                    print ('the letter entered is already done')
+                    print ('The letter entered is already done')
                     k='ij'
                     continue
                 else:       
@@ -157,7 +159,7 @@ class Game:
                     break
                     
             if self.animal.find(k)!=-1: # When letter is in the animal name
-                print ('yes the letter \''+k+'\' is there')
+                print ('yes the letter \''+colored(k,'red')+'\' is there')
                 time.sleep(2)
                 i=0
                 while i<len(self.animal):
@@ -192,6 +194,42 @@ def start_screen():
     except KeyboardInterrupt: # Catch Keyboard interrupt error and pass
         pass
 
+def select_type():
+    os.system("clear")
+    print("\n\n\t\tSelect word list\n\t\t1. Animals\n\t\t2. Pokemons\n\t\t3. Fruits\n\t\t4. Countries\n\t\t5. Bollywood Movies")
+    file_name = None
+    lst_type = None
+    while True:
+        c = readchar.readchar() 
+        if c == '1': 
+            file_name = 'animals.txt'
+            lst_type = 'animals'
+            break
+        elif c == '2':
+            file_name = 'pokemons.txt'
+            lst_type = 'pokemons'
+            break
+        elif c == '3':
+            file_name = 'fruits.txt'
+            lst_type = 'fruits'
+            break
+        elif c == '4':
+            file_name = 'countries.txt'
+            lst_type = 'fruits'
+            break
+        elif c == '5':
+            file_name = 'bollywood movies.txt'
+            lst_type = 'bollywood movies'
+            break
+
+    # Open file containing animal names in read-only mode
+    file_loc = os.path.join(DATA_LOCATION,file_name)
+    f = open(file_loc,'r')
+
+    # Add each animal name on each line to a list 'animals'
+    lst =  [x.strip() for x in f.readlines()]
+    return lst_type,lst
+
 
 # Function for animation after win or lose
 # Takes a Game class object as input
@@ -221,6 +259,7 @@ def hanging_man_anim(game):
             i+=1
 
 start_screen()
+list_type,animals = select_type()
 
 while True:#Game loop
     
