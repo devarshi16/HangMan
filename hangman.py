@@ -1,13 +1,16 @@
 from __future__ import print_function
 from builtins import input
+from termcolor import colored
 
 from random import randint
 import sys
 import os
 import time
+from config import *
 
 # Open file containing animal names in read-only mode
-f = open('animals.txt','r')
+file_loc = os.path.join(DATA_LOCATION,'animals.txt')
+f = open(file_loc,'r')
 
 # Add each animal name on each line to a list 'animals'
 animals =  [x.strip() for x in f.readlines()]
@@ -135,7 +138,7 @@ class Game:
         while True:
             os.system("clear")
             k='ij'
-            print (hngmn[self.s]) # Print current state of hangman
+            print (colored(hngmn[self.s],'magenta')) # Print current state of hangman
             for i in range(len(self.blanks)):
                 print(self.blanks[i],end= ' ')
             print()
@@ -179,11 +182,11 @@ def start_screen():
     try:
         while True:
             os.system("clear") # equivalent to typing clear on terminal
-            print(hngmn[i%7])
-            print ('##### WELCOME TO THE GAME OF HANGMAN #####')
-            print ('####### Save the man from hanging ########')
+            print(colored(hngmn[i%7],'green'))
+            print (colored('##### WELCOME TO THE GAME OF HANGMAN #####','yellow'))
+            print (colored('####### Save the man from hanging ########','cyan'))
             if i%2 == 0:
-                print ('        [press Ctrl+C to start]')
+                print (colored('        [press Ctrl+C to start]','red'))
             time.sleep(0.5) # Animate by giving sleep time
             i+=1
     except KeyboardInterrupt: # Catch Keyboard interrupt error and pass
@@ -198,10 +201,10 @@ def hanging_man_anim(game):
         while i <= 4:
             os.system("clear")
             if i%2 == 0:
-                print(hanged_man)
+                print(colored(hanged_man,'red'))
             else:
-                print(hngmn[-1])
-            print(":( !Man Hanged! :(\nCorrect word: "+game.animal)
+                print(colored(hngmn[-1],'red'))
+            print(colored(":( !Man Hanged! :(\nCorrect word: ",'red')+colored(game.animal,'green'))
             game.Status()
             time.sleep(0.5)
             i+=1
@@ -209,10 +212,10 @@ def hanging_man_anim(game):
         while i <= 4:
             os.system("clear")
             if i%2 == 0:
-                print(free_man[0])
+                print(colored(free_man[0],'green'))
             else:
                 print(free_man[1])
-            print(":) !Man Saved! :)")
+            print(colored(":) !Man Saved! :)",'green'))
             game.Status()
             time.sleep(0.5)
             i+=1
