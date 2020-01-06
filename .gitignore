@@ -6,6 +6,9 @@ __pycache__/
 # Vim swap files
 .hangman.py.swp
 
+# Setup tools egg
+*egg-info
+
 # C extensions
 *.so
 
