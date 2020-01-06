@@ -7,7 +7,6 @@ from random import randint
 import sys
 import os
 import time
-from .config import *
 from .data import *
 
 data_dir = os.path.join(os.path.dirname(__file__),'data')
