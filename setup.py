@@ -31,7 +31,7 @@ with open("README.md", "r") as fh:
     """
 setuptools.setup(
      name='hangman-ultimate',  
-     version='1.0',
+     version='1.0.1',
      author="devarshi16",
      author_email="devershigpt6@gmail.com",
      description="A Game of Hangman",
@@ -45,7 +45,7 @@ setuptools.setup(
      #include_package_data=True,
      classifiers=[
          "Development Status :: 4 - Beta",
-         "Programming Language :: Python ::3",
+         "Programming Language :: Python :: 3.5",
          "License :: OSI Approved :: MIT License",
          "Operating System :: Unix",
      ],
