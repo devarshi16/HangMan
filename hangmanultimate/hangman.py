@@ -8,6 +8,8 @@ import sys
 import os
 import time
 from .data import *
+import threading,time
+from threading import Lock
 
 data_dir = os.path.join(os.path.dirname(__file__),'data')
 
@@ -181,25 +183,36 @@ class Game:
                 self.success_stat=0
                 break
 
+key = None
+def get_key_press():
+    global key
+    global printing_lock
+    while key!='q':
+        key = readchar.readchar()
+        if key == '\x03':
+            raise KeyboardInterrupt
+
 # Start Screen of game
 def start_screen():
     i = 0
+    global key
+    global printing_key
     try:
-        while True:
+        while key!='q':
             os.system("clear") # equivalent to typing clear on terminal
             print(colored(hngmn[i%7],'green'))
             print (colored('##### WELCOME TO THE GAME OF HANGMAN #####','yellow'))
             print (colored('####### Save the man from hanging ########','cyan'))
             if i%2 == 0:
-                print (colored('        [press Ctrl+C to start]','red'))
+                print (colored('       [press <Ctrl + c> to start]','red'))
             time.sleep(0.5) # Animate by giving sleep time
             i+=1
-    except KeyboardInterrupt: # Catch Keyboard interrupt error and pass
+    except:
         pass
 
 def select_type():
     os.system("clear")
-    print("\n\n\t\tSelect word list\n\t\t1. Animals\n\t\t2. Pokemons\n\t\t3. Fruits\n\t\t4. Countries\n\t\t5. Bollywood Movies")
+    print(colored("\n\n\t\tSelect word list\n\t\t1. Animals\n\t\t2. Pokemons\n\t\t3. Fruits\n\t\t4. Countries\n\t\t5. Bollywood Movies","magenta"))
     file_name = None
     lst_type = None
     while True:
@@ -224,6 +237,8 @@ def select_type():
             file_name = 'bollywood movies.txt'
             lst_type = 'bollywood movies'
             break
+        elif c == '\x03':
+            raise KeyboardInterrupt
 
     # Open file containing animal names in read-only mode
     #file_loc = os.path.join(os.path.dirname(os.path.realpath(__file__)),DATA_LOCATION,file_name)
