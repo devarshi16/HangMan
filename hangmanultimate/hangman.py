@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from __future__ import print_function
 from builtins import input
 from termcolor import colored
@@ -6,7 +7,10 @@ from random import randint
 import sys
 import os
 import time
-from config import *
+from .config import *
+from .data import *
+
+data_dir = os.path.join(os.path.dirname(__file__),'data')
 
 # hangman sprites
 hngmn = ['''
@@ -107,10 +111,10 @@ class Game:
     blanks='_'
     done_letters=['ij']
     
-    
     #methods
-    def __init__(self):#initialisation
-        self.animal = animals[randint(0,len(animals)-1)].lower()
+    def __init__(self,words,list_type):#initialisation
+        print(words)
+        self.animal = words[randint(0,len(words)-1)].lower()
         self.blanks=len(self.animal)*'_'
         for i,letter in enumerate(self.animal):
             if not letter.isalpha():
@@ -223,11 +227,16 @@ def select_type():
             break
 
     # Open file containing animal names in read-only mode
-    file_loc = os.path.join(DATA_LOCATION,file_name)
+    #file_loc = os.path.join(os.path.dirname(os.path.realpath(__file__)),DATA_LOCATION,file_name)
+    '''
+    file_loc = os.path.join(data_dir,file_name)
     f = open(file_loc,'r')
 
     # Add each animal name on each line to a list 'animals'
     lst =  [x.strip() for x in f.readlines()]
+    '''
+    lst = word_list[lst_type]
+    print(lst)
     return lst_type,lst
 
 
@@ -258,31 +267,33 @@ def hanging_man_anim(game):
             time.sleep(0.5)
             i+=1
 
-start_screen()
-list_type,animals = select_type()
+def main():
+    start_screen()
+    list_type,words = select_type()
+    print(words)
 
-while True:#Game loop
-    
-    game = Game()
-    
-    game.done_letters=[]
-    
-    game.MainGame()
-    
-    game.Score()
-    hanging_man_anim(game)
-    #game.Score()
-    
-    exit_question = input("another game?(y/n)")
-    break_flag = 0
-    while True:
-        if (exit_question =='y'):
-            break
-        elif (exit_question == 'n'):
-            break_flag =1
-            break   
-        else:
-            exit_question = input("please type (y/n)")
+    while True:#Game loop
+        
+        game = Game(words,list_type)
+        
+        game.done_letters=[]
+        
+        game.MainGame()
+        
+        game.Score()
+        hanging_man_anim(game)
+        #game.Score()
+        
+        exit_question = input("another game?(y/n)")
+        break_flag = 0
+        while True:
+            if (exit_question =='y'):
+                break
+            elif (exit_question == 'n'):
+                break_flag =1
+                break   
+            else:
+                exit_question = input("please type (y/n)")
 
-    if break_flag != 0:
-       break
+        if break_flag != 0:
+           break
