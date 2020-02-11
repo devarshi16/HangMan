@@ -4,9 +4,15 @@
 [![Downloads](https://pepy.tech/badge/hangman-ultimate/week)](https://pepy.tech/project/hangman-ultimate/week)
 
 A character user interface of the  popular game hangman 
-![HANGMAN OPENING](https://raw.githubusercontent.com/devarshi16/HangMan/master/hangman_terminal.png)
+![HANGMAN OPENING](https://github.com/devarshi16/HangMan/blob/master/hangman_ultimate.gif)
+
 ```
 pip install hangman-ultimate
 ```
-This repository provides code for my [blog](https://attackonalgorithms.wordpress.com/2019/10/24/slightly-non-trivial-implementation-of-cli-hangman-a-hands-on-python-tutorial/) 
+OR run directly using the runner file.
+
+```
+python hangman-runner.py
+```
+Find the tutorial for the above repo on my [blog](https://attackonalgorithms.wordpress.com/2019/10/24/slightly-non-trivial-implementation-of-cli-hangman-a-hands-on-python-tutorial/) 
 
