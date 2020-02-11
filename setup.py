@@ -31,7 +31,7 @@ with open("README.md", "r") as fh:
     """
 setuptools.setup(
      name='hangman-ultimate',  
-     version='1.0.1',
+     version='1.0.2',
      author="devarshi16",
      author_email="devershigpt6@gmail.com",
      description="A Game of Hangman",

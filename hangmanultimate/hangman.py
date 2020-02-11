@@ -115,19 +115,19 @@ class Game:
     #methods
     def __init__(self,words,list_type):#initialisation
         print(words)
-        self.animal = words[randint(0,len(words)-1)].lower()
+        self.animal = words[randint(0,len(words)-1)].upper()
         self.blanks=len(self.animal)*'_'
         for i,letter in enumerate(self.animal):
             if not letter.isalpha():
                 self.blanks = self.blanks[:i]+letter+self.blanks[i+1:]
         os.system("clear")
-        print(hngmn[0])
-        print ('You have to guess the name of the '+list_type+' letter by letter')
-        print ('Your '+list_type+' is ' ,end='')
-        for letter in self.blanks:
-            print(letter,end = ' ')
-        print()
-        time.sleep(3)
+        #print(hngmn[0])
+        #print ('Guess the name of the '+list_type+' letter by letter')
+        #print ('Your '+list_type+' is ' ,end='')
+        #for letter in self.blanks:
+        #    print(letter,end = ' ')
+        #print()
+        #time.sleep(3)
     
     def Score(self):#displayed at the end
         if self.success_stat == 1:
@@ -136,7 +136,7 @@ class Game:
             Game.lose = Game.lose + 1
 
     def Status(self): # Returns current win/lose status
-        print("Score is "+colored("win = "+str(Game.win),'green')+" \ "+colored("lose ="+ str(Game.lose),'red') )
+        print("Score is "+colored("win = "+str(Game.win),'green')+" \\ "+colored("lose ="+ str(Game.lose),'red') )
     
     def MainGame(self):#main game method
         while True:
@@ -146,6 +146,8 @@ class Game:
             for i in range(len(self.blanks)):
                 print(self.blanks[i],end= ' ')
             print()
+            print(colored("DONE LETTERS:",'blue'),end='')
+            print(*self.done_letters,sep=',')
             while True:
                 k=input("Your choice of letter?")
                 if len(k)!=1:
@@ -154,18 +156,18 @@ class Game:
                 elif not k.isalpha():
                     print('Enter only alphabets')
                     continue
-                elif k.lower() in self.done_letters:
+                elif k.upper() in self.done_letters:
                     print ('The letter entered is already done')
                     k='ij'
                     continue
                 else:       
-                    k=k.lower()
+                    k=k.upper()
                     self.done_letters.append(k)
                     break
                     
             if self.animal.find(k)!=-1: # When letter is in the animal name
-                print ('yes the letter \''+colored(k,'red')+'\' is there')
-                time.sleep(2)
+                #print ('yes the letter \''+colored(k,'red')+'\' is there')
+                #time.sleep(2)
                 i=0
                 while i<len(self.animal):
                     if self.animal[i]==k:
@@ -212,6 +214,7 @@ def start_screen():
 
 def select_type():
     os.system("clear")
+    print(colored("Rules: Guess the word letter by letter to save the man from hanging",'blue'))
     print(colored("\n\n\t\tSelect word list\n\t\t1. Animals\n\t\t2. Pokemons\n\t\t3. Fruits\n\t\t4. Countries\n\t\t5. Bollywood Movies","magenta"))
     file_name = None
     lst_type = None
