@@ -1,4 +1,5 @@
 # HangMan
+[![PyPI version](https://badge.fury.io/py/hangman-ultimate.svg)](https://badge.fury.io/py/hangman-ultimate)
 [![Downloads](https://pepy.tech/badge/hangman-ultimate)](https://pepy.tech/project/hangman-ultimate)
 [![Downloads](https://pepy.tech/badge/hangman-ultimate/month)](https://pepy.tech/project/hangman-ultimate/month)
 [![Downloads](https://pepy.tech/badge/hangman-ultimate/week)](https://pepy.tech/project/hangman-ultimate/week)
