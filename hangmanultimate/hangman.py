@@ -215,7 +215,12 @@ def start_screen():
 def select_type():
     os.system("clear")
     print(colored("Rules: Guess the word letter by letter to save the man from hanging",'blue'))
-    print(colored("\n\n\t\tSelect word list\n\t\t1. Animals\n\t\t2. Pokemons\n\t\t3. Fruits\n\t\t4. Countries\n\t\t5. Bollywood Movies","magenta"))
+    print(
+        colored(
+            "\n\n\t\tSelect word list\n\t\t1. Animals\n\t\t2. Pokemons\n\t\t3. Fruits\n\t\t4. Countries\n\t\t5. Bollywood Movies",
+            "magenta",
+        )
+    )
     file_name = None
     lst_type = None
     while True:
@@ -234,7 +239,7 @@ def select_type():
             break
         elif c == '4':
             file_name = 'countries.txt'
-            lst_type = 'fruits'
+            lst_type = 'countries'
             break
         elif c == '5':
             file_name = 'bollywood movies.txt'
@@ -243,18 +248,10 @@ def select_type():
         elif c == '\x03':
             raise KeyboardInterrupt
 
-    # Open file containing animal names in read-only mode
-    #file_loc = os.path.join(os.path.dirname(os.path.realpath(__file__)),DATA_LOCATION,file_name)
-    '''
-    file_loc = os.path.join(data_dir,file_name)
-    f = open(file_loc,'r')
-
-    # Add each animal name on each line to a list 'animals'
-    lst =  [x.strip() for x in f.readlines()]
-    '''
+    # Retrieve the selected word list from the in-memory dictionary
     lst = word_list[lst_type]
     print(lst)
-    return lst_type,lst
+    return lst_type, lst
 
 
 # Function for animation after win or lose
