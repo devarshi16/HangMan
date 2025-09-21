@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hangman-ultimate"
+version = "1.0.2"
+description = "A Game of Hangman"
+readme = "README.md"
+requires-python = ">=3.5"
+license = {file = "LICENSE"}
+authors = [{name = "devarshi16", email = "devershigpt6@gmail.com"}]
+keywords = [
+    "hangman",
+    "hangman-game",
+    "python-tutorial",
+    "hangman-python",
+    "terminal-game",
+    "game",
+    "pokemon",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3.5",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Unix",
+]
+dependencies = [
+    "readchar>=2.0.1",
+    "termcolor>=1.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/devarshi16/HangMan"
+
+[project.scripts]
+"hangman-ultimate" = "hangmanultimate.hangman:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+hangmanultimate = ["data/*.txt"]

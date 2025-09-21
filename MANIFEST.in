@@ -1,2 +1,2 @@
 include README.md
-include hangmanultimate/data/*.txt
+include src/hangmanultimate/data/*.txt
